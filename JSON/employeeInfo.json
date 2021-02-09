@@ -1,0 +1,32 @@
+ [
+      {
+        "FirstName": "Amit",
+        "LastName": "Chavan",
+        "MobileNo": 7896582145,
+        "City": "Pune"
+      },
+      {
+        "FirstName": "Shriniwas",
+        "LastName": "Nakka",
+        "MobileNo": 8694562335,
+        "City": "Pune"
+      },
+      {
+        "FirstName": "Shritej",
+        "LastName": "Nurad",
+        "MobileNo": 8856239654,
+        "City": "washim"
+      },
+      {
+        "FirstName": "Sonu",
+        "LastName": "Tidke",
+        "MobileNo": 8906455825,
+        "City": "Nagpur"
+      },
+      {
+        "FirstName": "Vaibhaw",
+        "LastName": "Tik",
+        "MobileNo": 7387944658,
+        "City": "Pune"
+      }
+ ]
