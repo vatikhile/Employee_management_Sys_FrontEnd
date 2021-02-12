@@ -1,117 +1,174 @@
-// var $ = require( "jquery" );
-// const { JSDOM } = require( "jsdom" );
-// const { window } = new JSDOM( "" );
-// const $ = require( "jquery" )( window );  
 
-$(document).ready(function(){
-  console.log("test");
-  // if (jQuery) { alert('jQuery is loaded!',student);
+$(document).ready(function () {
+  var btn = document.getElementById("AddDetails");
+  var cancelbtn = document.getElementsByClassName("close")[0];
+  var submit = document.getElementById("submitButton");
+  var popup = document.getElementById("wrapper");
+  btn.onclick = function () {
+    popup.style.display = "block";
+  }
+  submit.onclick = function () {
+    popup.style.display = "block";
+  }
+  cancelbtn.onclick = function () {
+    clearData()
+    $("#nameIsValid").text("");
+    $("#secondName").text("");
+    $("#number").text("");
+    $("#companyTittle").text("");
+    $("#emailID").text("");
+    $("#addressDetails").text("");
+    popup.style.display = "none"
+  }
+
+  $("#submitButton").click(function (event) {
+    var isValid = false;
+    let first_Name = $('#name').val();
+    let last_Name = $('#lastName').val();
+    let email = $('#email').val();
+    let company_Name = $('#Company').val();
+    let mobile_Number = $('#mobNumber').val();
+    let address = $('#address').val();
+    let regex_name = new RegExp("^[A-Z]{1}[a-z]{2,}$");
+    let regex_number = "/7|8|9)\d{9}/";
+    let regex_CompanyName = new RegExp("^[A-Z]{1,}[a-z]{2,}$");
+    // let regex_email = new RegExp("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]$")
+    if (regex_name.test(first_Name) && first_Name != '') {
+      isValid = true;
+      $("#nameIsValid").text("");
+    } else {
+
+      isValid = false;
+      $("#nameIsValid").text("Invalid FirstName");
+    }
+    if (regex_name.test(last_Name) && last_Name != '') {
+      isValid = true;
+      $("#secondName").text("");
+    } else {
+      $("#secondName").text("Invalid LastName");
+      isValid = false;
+    }
+
+    if (mobile_Number != '') {
+      isValid = true;
+      $("#number").text("");
+    } else {
+      $("#number").text("Invalid Mobile Number");
+      isValid = false;
+    }
+    if (regex_CompanyName.test(company_Name) && company_Name != '') {
+      isValid = true;
+      $("#companyTittle").text("");
+    } else {
+      $("#companyTittle").text("Invalid CompanyName");
+
+      isValid = false;
+    }
+    if (email != '') {
+      isValid = true;
+      $("#emailID").text("");
+
+    } else {
+      $("#emailID").text("Invalid emailID");
+      isValid = false;
+    }
+
+    if (regex_name.test(address) && address != '') {
+      isValid = true;
+      $("#addressDetails").text("");
+    } else {
+      $("#addressDetails").text("Enter Address");
+      isValid = false;
+    }
+
+    if (isValid) {
+      var details = { firstName: $('#name').val(), lastName: $('#lastName').val(), email: $('#email').val(), companyName: $('#Company').val(), mobileNumber: $('#mobNumber').val(), address: $('#address').val() }
+
+      $.ajax({
+        url: 'http://localhost:3000/employee/add',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data) {
+          clearData()
+          // alert('Employee Added sucessFully')
+        },
+        data: JSON.stringify(details)
+      });
+    }
+    else {
+      console.log("Something Wrong")
+    }
+  })
+
   // FETCHING DATA FROM JSON FILE 
-  $.getJSON("../JSON/employeeInfo.json",
-    function (data) {
-      var student='';
-      // if (jQuery) { alert('jQuery is loaded!',student);  } 
-      // ITERATING THROUGH OBJECTS 
-      $.each(data, function (key, value) {
+  $.ajax({
+    // The URL for the request
+    url: "http://localhost:3000/allemployee/read",
+    // Whether this is a GET request
+    type: "GET",
+    // The type of data we expect back
+    dataType: "json",
+  })
+    .done(function (json) {
+      let student = ''
+      student = json.data
+      $.each(student, function (key, value) {
 
         //CONSTRUCTION OF ROWS HAVING 
         // DATA FROM JSON OBJECT 
         student += '<tr>';
         student += '<td>' +
-          value.FirstName + '</td>';
+          value.firstName + '</td>';
 
         student += '<td>' +
-          value.LastName + '</td>';
+          value.lastName + '</td>';
 
         student += '<td>' +
-          value.MobileNo + '</td>';
+          value.email + '</td>';
+        student += '<td>' +
+          value.companyName + '</td>';
+        student += '<td>' +
+          value.mobileNumber + '</td>';
+        student += '<td>' +
+          value.address + '</td>';
 
         student += '<td>' +
-          value.City + '</td>';
-
+          "<button id='" + value._id + "' type='button' onclick='productDelete(this)' value='" + value.email + "' >Delete</button>" +
+          " <button id='" + value._id + "' type='button' onclick='productEdit(this)' value='" + value.email + "' >Edit</button></td>";
         student += '</tr>';
+
       });
-console.log("stude",student);
+
       //INSERTING ROWS INTO TABLE  
       $('#table').append(student);
-    });
+    })
+
+    .fail(function (xhr, status, errorThrown) {
+      alert("Sorry, there was a problem!");
+      console.log("Error: " + errorThrown);
+      console.log("Status: " + status);
+      console.dir(xhr);
+    })
+
 });
 
-
-// function promptMe(){
-//     var userAdjective = prompt("Please Enter the Details");
-//     alert (userAdjective);
-// }
-// $(document).ready(function(){
-//     function promptMe() {
-//         // Call Web API to get a list of Product
-//         $.ajax({
-//           url: '/employee/add',
-//           type: 'GET',
-//           dataType: 'json',
-//           success: function (data) {
-//               console.log("data",data);
-//             // productListSuccess(products);
-//           },
-//           error: function (error) {
-//               console.log("error",error);
-//             // handleException(request, message, error);
-//           }
-//         });
-//       }
-// jQuery methods go here...
-
-//   });
-// $(document).ready(function(){
-//     $("button").click(function(){
-//       $("p").hide();
-//     });
-//   });
-
-// alert('gfgg')
-// const fs = require('fs');
-
-// class Employee {
-//   constructor() {
-//     var employee=''
-//     this.data = fs.readFileSync('../JSON/employeeInfo.json', 'utf8');
-//     this.employeeData = JSON.parse(this.data);
-//     // console.log("data",this.employeeData);
-// this.employeeData.forEach(myFunction);
-// function myFunction(item, index) {
-//   console.log("item",employee);
-//   document.getElementById("table").innerHTML += "employee"
-  // document.getElementById("add_to_me").innerHTML += 
-  // '<tr>'
-  //          '<td>' +
-  //         item.FirstName + '</td>';
-  
-  //          '<td>' +
-  //         item.LastName + '</td>';
-  
-  //         '<td>' +
-  //         item.MobileNo + '</td>'; 
-  
-  //          '<td>' +
-  //         item.City + '</td>';
-  
-  //         '</tr>'; 
-//           employee += '<tr>';
-//         employee += '<td>' +
-//           item.FirstName + '</td>';
-
-//         employee += '<td>' +
-//           item.LastName + '</td>';
-
-//         employee += '<td>' +
-//           item.MobileNo + '</td>';
-
-//         employee += '<td>' +
-//           item.City + '</td>';
-
-//         employee += '</tr>';
-// }
-// }
-// }
-// var obj = new Employee();
-
+/* Method for clear the Input fields data which enter by user */
+function clearData() {
+  document.getElementById('name').value = ''
+  document.getElementById('lastName').value = ''
+  document.getElementById('Company').value = ''
+  document.getElementById('mobNumber').value = ''
+  document.getElementById('address').value = ''
+  document.getElementById('email').value = ''
+}
+/* Request call after click on delete button for deleting the Employee Entry */
+function productDelete(value) {
+  $.ajax({
+    url: "http://localhost:3000/employee/deleteInfo" + value.id + "",
+    type: "DELETE",
+    dataType: "json",
+  }).done(data => {
+    console.log("Deleted Sucessfully", data);
+  })
+}

@@ -6,22 +6,59 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
     <script type="text/javascript" src="../Javascript/main.js"></script>
     <link rel="stylesheet" href="../CSS/style.css">
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/themes/smoothness/jquery-ui.css" rel="stylesheet"
+        type="text/css" media="all" />
 
 </head>
 
 <body>
     <section>
         <h2>Employee Management System</h2>
-        <button>Add Employee</button>
+        <button id="AddDetails">Add Employee</button>
+        <div id="wrapper" class="modal">
+            <div class="modal-content">
+                <h3>New Employee Details</h3>
+                <div>
+                    <input id="name" placeholder="First Name">
+                    <span id="nameIsValid"></span>
+                </div>
+                <div>
+                    <input type="text" id="lastName" placeholder="secondName">
+                    <span id="secondName"></span>
+                </div>
+                <div>
+                    <input type="email" id="email" placeholder="Email">
+                    <span id="emailID"></span>
+                </div>
+                <div>
+                    <input type="text" id="Company" placeholder="Company Name">
+                    <span id="companyTittle"></span>
+                </div>
+                <div>
+                    <input id="mobNumber" placeholder="Mobile Number">
+                    <span id="number"></span>
+                </div>
+                <div>
+                    <input type="text" id="address" placeholder="Address">
+                    <span id="addressDetails"></span>
+                </div>
+                <div>
+                    <button id="cancelButton" class="close">Cancel</button>
+                    <button id="submitButton">Submit Details</button>
+                </div>
+            </div>
+        </div>
         <table id="table">
             <tr>
                 <th>FirstName</th>
                 <th>LastName</th>
+                <th>Employee Email</th>
                 <th>Company Name</th>
                 <th>Mobile Number</th>
+                <th>Addess</th>
+                <th>Delete & Edit</th>
 
             </tr>
-
 
         </table>
     </section>
