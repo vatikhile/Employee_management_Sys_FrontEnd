@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
     <title>Employee Details</title>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
     <script type="text/javascript" src="../Javascript/main.js"></script>
@@ -12,12 +12,14 @@
 </head>
 
 <body>
-    <section>
+    
         <h2>Employee Management System</h2>
+        <div class="subButton">
         <button id="AddDetails">Add Employee</button>
+    </div>
         <div id="wrapper" class="modal">
             <div class="modal-content">
-                <h3>New Employee Details</h3>
+                <h3 id="popupHeader">New Employee Details</h3>
                 <div>
                     <input id="name" placeholder="First Name">
                     <span id="nameIsValid"></span>
@@ -48,6 +50,7 @@
                 </div>
             </div>
         </div>
+        <div class="main">
         <table id="table">
             <tr>
                 <th>FirstName</th>
@@ -61,7 +64,7 @@
             </tr>
 
         </table>
-    </section>
+    </div>
 </body>
 
 </html>
