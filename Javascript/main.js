@@ -15,28 +15,21 @@ $(document).ready(function () {
 
   cancel()
   $("#submitButton").click(function (event) {
- 
+
     if (check == "add") {
-      // alert("addd")
       event.preventDefault();
       add()
       cancel()
 
     }
     else {
-      // alert("edit")
       event.preventDefault();
       edit()
       cancel()
-
-
     }
-
-
   })
 
   // FETCHING DATA FROM JSON FILE 
-  //  var getData = () =>{ 
   $.ajax({
     // The URL for the request
     url: "http://localhost:3000/allemployee/read",
@@ -109,16 +102,13 @@ function productDelete(value) {
     dataType: "json",
   }).done(data => {
     console.log("Deleted Sucessfully", data);
+
   })
-  // getEmployeeData();
 }
 function productEdit(id) {
   employeeId = id.value;
   console.log("fisrt check", check);
-  // $(".popupHeader h3").empty();
   $("#popupHeader").text("");
-  // $("#popupHeader").text("Update Employee Details");
-  // $('#submitButton').attr('id','#editButton'); 
   check = 'edit'
   console.log("check", check);
   console.log("value", id.value);
@@ -153,18 +143,10 @@ function productEdit(id) {
     $("#address").val(function () {
       return employeeInfo.address
     });
-    console.log("single entry", employeeInfo);
-    // /////////////////////////////////////////////////
-    // let editEntry = document.getElementById("submitButton");
-    // editEntry.onclick = function () {
-    //   edit()
-    // }
   })
 }
 
 function add() {
-  // alert("rgg")
-
   var isValid = false;
   let first_Name = $('#name').val();
   let last_Name = $('#lastName').val();
@@ -198,7 +180,6 @@ function add() {
     $("#number").text("");
   } else {
     $("#number").text("Invalid Mobile Number");
-    // console.log("number", mobile_Number.value.length);
     isValid = false;
   }
   if (regex_CompanyName.test(company_Name) && company_Name != '') {
@@ -235,18 +216,11 @@ function add() {
       dataType: 'json',
       contentType: 'application/json',
       success: function (data) {
-        // clearData()
+
 
         let popup = document.getElementById("wrapper");
         popup.style.display = "none"
         clearData()
-
-        //  cancel();
-        // jQuery.ready();
-        // getEmployeeData();
-
-        // alert('Employee Added sucessFully')
-        // $(this).cancel()
       },
       data: JSON.stringify(details)
     });
